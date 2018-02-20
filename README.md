@@ -12,6 +12,20 @@
 - Space Megaforce
 ### Daft
 - Super Back to the Future Part II
+### LucasArts
+- Ghoul Patrol
+### Make
+- Super Adventure Island II
+### Namco
+- 90 Minutes - European Prime Goal
+### Redline Games
+- Pitfall - The Mayan Adventure
+### Software Creations
+- Spider-Man & Venom - Separation Anxiety
+### Sol
+- Flintstones, The - The Treasure of Sierra Madrock
+### SunSoft
+- Pirates of Dark Water, The
 ### System Sacom
 - Smart Ball
 ### Ukiyotei
