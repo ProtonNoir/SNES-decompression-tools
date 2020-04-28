@@ -18,6 +18,7 @@
 - Super Adventure Island II
 ### Namco
 - 90 Minutes - European Prime Goal
+- Metal Marines
 ### Redline Games
 - Pitfall - The Mayan Adventure
 ### Software Creations
