@@ -5,7 +5,7 @@
 ### Adrenalin Interactive
 - Mutant Chronicles - Doom Troopers
 ### ASCII Corporation
-- [Ardy Lightfoot](Ardy-Lightfoot)
+- [Ardy Lightfoot](https://github.com/ProtonNoir/SNES-decompression-tools/wiki/Ardy-Lightfoot)
 ### C-Lab
 - Action Pachio
 ### Compile
