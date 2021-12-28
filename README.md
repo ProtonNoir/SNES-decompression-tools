@@ -1,4 +1,4 @@
-## SNES graphics decompression tools
+## Decompression tools for data (graphics/tile sets/tile maps/text) in SNES games
 
 ### Accolade
 - Bubsy II
