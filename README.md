@@ -1,5 +1,12 @@
 ## Decompression tools for data (graphics/tile sets/tile maps/text) in SNES games
 
+| Game                              | Developer             | Compression |
+| :---                              |    :----:             |       :---: |
+| Bubsy II                          | Accolade              | LZSS        |
+| Mutant Chronicles - Doom Troopers | Adrenalin Interactive | LZSS        |
+| Ardy Lightfoot                    | ASCII Corporation     | RLE         |
+
+
 ### Accolade
 - Bubsy II
 ### Adrenalin Interactive
