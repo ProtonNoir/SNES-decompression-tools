@@ -5,7 +5,7 @@
 ### Adrenalin Interactive
 - Mutant Chronicles - Doom Troopers
 ### ASCII Corporation
-- Ardy Lightfoot
+- [Ardy Lightfoot](Ardy-Lightfoot)
 ### C-Lab
 - Action Pachio
 ### Compile
