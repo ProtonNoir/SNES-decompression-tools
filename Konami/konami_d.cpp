@@ -38,6 +38,12 @@ int main(int argc, char **argv)
     cout << ":: konami_d.exe \"Adventures of Batman & Robin, The (U).smc\" 0xF8000 1    ::" << endl;
     cout << ":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" << endl;
 
+    if (argc < 4)
+    {
+        fprintf(stderr, "Bad parameters");
+        exit(-1);
+    }
+
     FILE *in_file;
     FILE *f2;
 
