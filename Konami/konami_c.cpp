@@ -80,14 +80,14 @@ int main(int argc, char **argv)
     in_file = fopen(argv[1], "rb");
     if (in_file==NULL)
     {
-        fputs ("Input file error",stderr);
+        perror ("Input file error");
         exit (1);
     }
 
     out_file = fopen(argv[2], "wb");
     if (out_file==NULL)
     {
-        fputs ("Output file error",stderr);
+        perror ("Output file error");
         exit (1);
     }
 

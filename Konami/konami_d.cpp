@@ -51,7 +51,7 @@ int main(int argc, char **argv)
     in_file = fopen(argv[1], "rb");
     if (in_file==NULL)
     {
-        fputs ("File error",stderr);
+		perror("File error");
         exit (1);
     }
 
