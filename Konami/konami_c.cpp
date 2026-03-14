@@ -63,7 +63,7 @@ int main(int argc, char **argv)
     cout << ":: konami_c.exe -i [input_filename] [rom_filename] [offset] [game_type]::" << endl;
     cout << ":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" << endl;
 
-    if (argc < 3)
+    if (argc < 4)
     {
         fprintf(stderr, "Bad parameters");
         exit(-1);
@@ -91,7 +91,7 @@ int main(int argc, char **argv)
         exit (1);
     }
 
-    if (argc==3)
+    if (argc == 4)
     {
         type = argv[3];
         if (type==NULL)
@@ -99,13 +99,18 @@ int main(int argc, char **argv)
             fputs ("Type error",stderr);
             exit (1);
         }
-    }
 
-    sscanf (type, "%x", &t);
-    if (t>1)
+    	sscanf(type, "%x", &t);
+        if (t > 1)
+        {
+            fputs("Wrong type", stderr);
+            exit(1);
+        }
+    }
+    else
     {
-        fputs ("Wrong type",stderr);
-        exit (1);
+        fputs("ROM insertion not supported yet", stderr);
+        exit(1);
     }
 
     fseek(in_file,0,SEEK_END);
