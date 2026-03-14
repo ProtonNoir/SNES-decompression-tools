@@ -2,6 +2,7 @@
 #include <fstream>
 #include <cstdio>
 #include <cstdlib>
+#include <cstdint>
 #include <iomanip>
 
 #define WINDOW_SIZE 0x400
