@@ -69,47 +69,56 @@ int main(int argc, char **argv)
         exit(-1);
     }
 
-    char *type;
+    bool insert_mode = strcmp(argv[1], "-i") == 0;
+    if (insert_mode && argc < 6)
+    {
+        fprintf(stderr, "Bad parameters");
+        exit(-1);
+    }
+
+    const char *in_filename;
+    const char *out_filename;
+    const char *type;
+    int fileoffset = 0;
+
+    if (insert_mode) {
+        in_filename = argv[2];
+        out_filename = argv[3];
+
+        sscanf(argv[4], "%x", &fileoffset);
+        if (fileoffset < 0)
+        {
+            fputs("Wrong offset", stderr);
+            exit(1);
+        }
+
+        type = argv[5];
+    }
+    else {
+        in_filename = argv[1];
+        out_filename = argv[2];
+        type = argv[3];
+    }
+
     unsigned int t;
 
-    FILE *in_file;
-    FILE *out_file;
-
-    //int fileoffset;
-
-    in_file = fopen(argv[1], "rb");
+    FILE *in_file = fopen(in_filename, "rb");
     if (in_file==NULL)
     {
         perror ("Input file error");
-        exit (1);
+        exit(1);
     }
 
-    out_file = fopen(argv[2], "wb");
-    if (out_file==NULL)
+    if (type==NULL)
     {
-        perror ("Output file error");
-        exit (1);
+        fputs ("Type error",stderr);
+        exit(1);
     }
 
-    if (argc == 4)
+    sscanf(type, "%x", &t);
+    if (t > 1)
     {
-        type = argv[3];
-        if (type==NULL)
-        {
-            fputs ("Type error",stderr);
-            exit (1);
-        }
-
-    	sscanf(type, "%x", &t);
-        if (t > 1)
-        {
-            fputs("Wrong type", stderr);
-            exit(1);
-        }
-    }
-    else
-    {
-        fputs("ROM insertion not supported yet", stderr);
+        fputs("Wrong type", stderr);
         exit(1);
     }
 
@@ -230,7 +239,7 @@ int main(int argc, char **argv)
 
     out_pos += write_raw(out_buf, out_pos, raw, raw_size);
 
-    cout << hex << "\nCompressed data size: " << (int)out_pos;
+    cout << hex << "\nCompressed data size: " << (int)out_pos << "\n";
 
     h1=(out_pos)&0xff;
     h2=((out_pos)&0xff00)>>8;
@@ -238,8 +247,44 @@ int main(int argc, char **argv)
     out_buf[0]=h1;
     out_buf[1]=h2;
 
-    fwrite(out_buf,1,out_pos,out_file);
-    fclose(out_file);
+
+
+    if (insert_mode)
+    {
+        FILE *rom_file = fopen(out_filename, "r+b");
+        if (rom_file==NULL)
+        {
+            perror("ROM file open error");
+            exit(1);
+        }
+
+        fseek(rom_file, 0, SEEK_END);
+        size_t rom_size = ftell(rom_file);
+        fseek(rom_file, 0, SEEK_SET);
+
+        if ((size_t)fileoffset + out_pos > rom_size)
+        {
+            fputs("Error: Compressed data exceeds ROM size", stderr);
+            exit(1);
+        }
+
+        fseek(rom_file, fileoffset, SEEK_SET);
+        fwrite(out_buf, 1 , out_pos, rom_file);
+        fclose(rom_file);
+    }
+    else
+    {
+        FILE *out_file = fopen(out_filename, "wb");
+        if (out_file==NULL)
+        {
+            perror ("Output file error");
+            exit(1);
+        }
+
+        fwrite(out_buf, 1 , out_pos, out_file);
+        fclose(out_file);
+    }
+
     return 0;
 }
 
