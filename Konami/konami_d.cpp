@@ -2,6 +2,7 @@
 #include <fstream>
 #include <cstdio>
 #include <cstdlib>
+#include <cstdint>
 #include <iomanip>
 
 #define WINDOW_SIZE 0x400
@@ -37,6 +38,12 @@ int main(int argc, char **argv)
     cout << ":: konami_d.exe \"Adventures of Batman & Robin, The (U).smc\" 0xF8000 1    ::" << endl;
     cout << ":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" << endl;
 
+    if (argc < 4)
+    {
+        fprintf(stderr, "Bad parameters");
+        exit(-1);
+    }
+
     FILE *in_file;
     FILE *f2;
 
@@ -50,7 +57,7 @@ int main(int argc, char **argv)
     in_file = fopen(argv[1], "rb");
     if (in_file==NULL)
     {
-        fputs ("File error",stderr);
+		perror("File error");
         exit (1);
     }
 
@@ -88,9 +95,14 @@ int main(int argc, char **argv)
 
     if (comp_size > DATA_SIZE) return 0;
 
-    for (int i=0; i<DATA_SIZE; i++)
+    for (int i = 0; i < DATA_SIZE; i++)
     {
-        in_buf[i]=out_buf[i]=win_buf[i]=0x00;
+        in_buf[i] = out_buf[i] = 0x00;
+    }
+
+    for (int i = 0; i < WINDOW_SIZE; i++)
+    {
+        win_buf[i] = 0x00;
     }
 
     fseek  (in_file,pos,SEEK_SET);
@@ -138,7 +150,7 @@ int main(int argc, char **argv)
                 out_buf[out_pos++]=in_buf[in_pos];
                 win_buf[buf_pos++]=in_buf[in_pos];
                 in_pos++;
-                if(buf_pos>WINDOW_SIZE)
+                if(buf_pos>=WINDOW_SIZE)
                 {
                     buf_pos=buf_pos-WINDOW_SIZE;
                 }
@@ -177,7 +189,7 @@ int main(int argc, char **argv)
             {
                 out_buf[out_pos++]=chr;
                 win_buf[buf_pos++]=chr;
-                if(buf_pos>WINDOW_SIZE)
+                if(buf_pos>=WINDOW_SIZE)
                 {
                     buf_pos=(buf_pos-WINDOW_SIZE)+a;
                 }
@@ -196,7 +208,7 @@ int main(int argc, char **argv)
                 for (int i=0; i<cnt; i++)
                 {
                     win_buf[buf_pos++]=0x00;
-                    if(buf_pos>WINDOW_SIZE)
+                    if(buf_pos>=WINDOW_SIZE)
                     {
                         buf_pos=(buf_pos-WINDOW_SIZE)+a;
                     }
@@ -214,7 +226,7 @@ int main(int argc, char **argv)
                     for (int i=0; i<cnt; i++)
                     {
                         win_buf[buf_pos++]=0x00;
-                        if(buf_pos>WINDOW_SIZE)
+                        if(buf_pos>=WINDOW_SIZE)
                         {
                             buf_pos=(buf_pos-WINDOW_SIZE)+a;
                         }
@@ -230,7 +242,7 @@ int main(int argc, char **argv)
                     for (int i=0; i<cnt; i++)
                     {
                         win_buf[buf_pos++]=0x00;
-                        if(buf_pos>WINDOW_SIZE)
+                        if(buf_pos>=WINDOW_SIZE)
                         {
                             buf_pos=(buf_pos-WINDOW_SIZE)+a;
                         }
